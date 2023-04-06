@@ -36,7 +36,7 @@ std::set<std::string> wordle(
 	return ret;
 }
 
-
+//return how many unknown characters are in the word
 int countHyphens(const string& word){
 	int count = 0;
 	for(char c : word){
@@ -45,7 +45,7 @@ int countHyphens(const string& word){
 	return count;
 }
 
-
+//recurse for each possible letter
 void genWords(const string& in, const string& floating, size_t pos, int hyphens,
 const set<string>& dict, set<string>& ret){
 	if(!hyphens and pos == in.length() and dict.find(in) != dict.end() and !floating.length()){
@@ -76,9 +76,11 @@ const set<string>& dict, set<string>& ret){
 	if(n != string::npos){
 		new_float.erase(n, 1);
 	}
+
 	if(hyphens < new_float.length()) return;
 	genWords(temp, new_float, pos+1, hyphens-1, dict, ret);
-
+	
+	//if gone through the entire alphabet
 	if(c == 'z') return;
 	else alpha(c+1, in, pos, hyphens, floating, dict, ret);
 
